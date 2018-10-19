@@ -29,7 +29,11 @@
 * Generate your application key: `php artisan key:generate —ansi`
 * Create the database tables `php artisan migrate`
 * Import initial database seeds `php artisan db:seed`
-* Setup Laravel Scheduler using `crontab -e` & then run `php /path/to/artisan schedule:run >> /dev/null 2>&1`
+* Setup Laravel Scheduler using `crontab -e` & then run `php /var/www/html/artisan schedule:run >> /dev/null 2>&1`
+
+## Screenshots
+
+![Screenshot](https://i.imgur.com/4kBLiIp.png)
 
 ## More Projects
 If you require any projects/systems to be developed alongside the FIFA 19 WebApp API then be sure to contact me using one of the methods below.
