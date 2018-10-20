@@ -102,6 +102,9 @@ class RunBuy extends Command {
                     ]);
                     abort(200);
                 } else {
+                    Accounts::find($this->account->id)->update([
+                        'in_use' => '0'
+                    ]);
                     abort(403);
                 }
             } else {
