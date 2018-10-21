@@ -223,6 +223,7 @@ class RunBuy extends Command {
                                             }
                                         } catch (FutError $e) {
                                             $error = $e->GetOptions();
+                                            Log::notice('We caught an exception when trying to bid? '.print_r($error, true));
                                             Log::notice('We failed to buy the auction for '.$player->name.' after attempting to buy him for '.$auction['buyNowPrice']);
                                             $auctionsFailed++;
                                         }
