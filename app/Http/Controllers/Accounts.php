@@ -36,6 +36,9 @@ class Accounts extends CrudController
                 'label' => 'Status',
                 'type' => 'closure',
                 'function' => function($entry) {
+                    if($entry->in_use === '1') {
+                        return "<label class='label label-success'>Running</label>";
+                    }
                     if($entry->status === '1') {
                         if(is_null($entry->phishingToken)) {
                             return "<label class='label label-danger'>Offline</label>";
