@@ -139,6 +139,14 @@ class RunBuy extends Command {
                     $players = Players::query()->where('ps_buy_bin', '<', $credits)->where('ps_buy_bin', '!=', '0')->where('status', '1')->orderBy('last_searched', 'ASC')->get();
                     break;
             }
+
+            if($players->count() === 0) {
+                Accounts::find($this->account->id)->update([
+                    'in_use' => '0'
+                ]);
+                abort(403);
+            }
+
             $original_rpm_limit = Setting::get('rpm_limit');
             $bid_limit = Setting::get('player_limit');
             $rpm_limit = $original_rpm_limit/$players->count();
