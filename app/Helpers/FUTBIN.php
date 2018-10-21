@@ -80,12 +80,14 @@ class FUTBIN {
     }
 
     public function selectPlayer($id = null, $resourceId = null) {
+        $proxy = $this->getProxy();
         try {
             $response = $this->client->request('POST', 'futbin/api/fetchPlayerInformation', [
                 'form_params' => [
                     'ID' => $id,
                     'platform' => $this->console
-                ]
+                ],
+                'proxy' => (isset($proxy['ip']) ? 'tcp://'.$proxy['ip'].':'.$proxy['port'] : null)
             ]);
         } catch (ClientException $response) {
             return false;
@@ -184,27 +186,14 @@ class FUTBIN {
     }
 
     private function setupClient() {
-        $proxy = $this->getProxy();
-        if(isset($proxy['ip'])) {
-            $this->client = new Client([
-                'base_uri' => $this->api_url,
-                'http_errors' => false,
-                'verify' => false,
-                'proxy' => 'tcp://'.$proxy['ip'].':'.$proxy['port'],
-                'headers' => [
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; rv:49.0) Gecko/20100101 Firefox/49.0',
-                ]
-            ]);
-        } else {
-            $this->client = new Client([
-                'base_uri' => $this->api_url,
-                'http_errors' => false,
-                'verify' => false,
-                'headers' => [
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; rv:49.0) Gecko/20100101 Firefox/49.0',
-                ]
-            ]);
-        }
+        $this->client = new Client([
+            'base_uri' => $this->api_url,
+            'http_errors' => false,
+            'verify' => false,
+            'headers' => [
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; rv:49.0) Gecko/20100101 Firefox/49.0',
+            ]
+        ]);
     }
 
 }
