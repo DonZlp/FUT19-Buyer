@@ -19,13 +19,13 @@
 * Install MBString `sudo apt-get install php7.2-mbstring`
 * Install DOM `sudo apt-get install php7.2-dom`
 * While still inside your web directory run the following `composer install --no-dev`
-* Edit your Apache config located at */etc/apache2/sites-available/000-default.conf* & change *AllowOverride None* to *AllowOverride All* & then save it
+* Edit your Apache config located at */etc/apache2/sites-available/000-default.conf* & change *AllowOverride None* to *AllowOverride All*, *DocumentRoot var/www/html to DocumentRoot var/www/html/public* & then save it
 * Enable ModRewrite using `sudo a2enmod rewrite`
 * Restart Apache `systemctl restart apache2`
 * Create your mySQL Database - [Instructions](http://wiki.gandi.net/en/hosting/using-linux/tutorials/ubuntu/createdatabase)
 * Chmod your Laravel Storage folder using `sudo chmod -R 777 /var/www/html/storage`
 * Make a folder for your FUT Cookies `mkdir /var/www/html/storage/app/fut_cookies`
-* Copy your *.env.example* to *.env*
+* Copy your *.env.example* to *.env* `php -r "copy('/var/www/html/.env.example', '/var/www/html/.env');"`
 * Generate your application key: `php artisan key:generate —ansi`
 * Create the database tables `php artisan migrate`
 * Import initial database seeds `php artisan db:seed`
