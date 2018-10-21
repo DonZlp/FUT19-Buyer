@@ -242,10 +242,12 @@ class RunBuy extends Command {
                 }
                 Log::info('Search completed for '.$player->name.' with '.$counter.' total searches, '.$auctions.' auctions, winning '.$auctionsWon.' & losing '.$auctionsFailed);
                 //update the player
-                $player->increment('total_searches', $counter);
-                $player->increment('auctions_found', $auctions);
-                $player->increment('auctions_won', $auctionsWon);
-                $player->increment('auctions_failed', $auctionsFailed);
+                if($counter && $auctions && $auctionsWon && $auctionsFailed) {
+                    $player->increment('total_searches', $counter);
+                    $player->increment('auctions_found', $auctions);
+                    $player->increment('auctions_won', $auctionsWon);
+                    $player->increment('auctions_failed', $auctionsFailed);
+                }
             }
 
         } catch(FutError $exception) {
