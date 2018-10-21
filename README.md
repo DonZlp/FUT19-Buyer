@@ -26,7 +26,7 @@
 * Chmod your Laravel Storage folder using `sudo chmod -R 777 /var/www/html/storage`
 * Make a folder for your FUT Cookies `mkdir /var/www/html/storage/app/fut_cookies`
 * Copy your *.env.example* to *.env* `php -r "copy('/var/www/html/.env.example', '/var/www/html/.env');"`
-* Generate your application key: `php artisan key:generate —ansi`
+* Generate your application key: `php artisan key:generate -—ansi`
 * Create the database tables `php artisan migrate`
 * Import initial database seeds `php artisan db:seed`
 * Setup Laravel Scheduler using `crontab -e` & then run `php /var/www/html/artisan schedule:run >> /dev/null 2>&1`
