@@ -211,6 +211,7 @@ class RunBuy extends Command {
                                         $auctions++;
                                         try {
                                             $this->fut->tradeStatus($auction['tradeId']);
+                                            Log::info('We found an auction ('.$auction['tradeId'].') & bidding on it for '.$auction['buyNowPrice']);
                                             $bid = $this->fut->bid($auction['tradeId'], $auction['buyNowPrice'], true);
                                             Log::info(print_r($bid, true));
                                             if(isset($bid['auctionInfo'])) {
