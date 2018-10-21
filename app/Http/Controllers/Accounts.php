@@ -130,7 +130,7 @@ class Accounts extends CrudController
                 '0' => 'No',
                 '1' => 'Yes'
             ],
-            'default' => '1',
+            'default' => '0',
             'inline' => true
         ]);
     }
