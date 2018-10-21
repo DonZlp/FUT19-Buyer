@@ -186,12 +186,14 @@ class RunBuy extends Command {
                             $auctions = 0;
                             $auctionsWon = 0;
                             $auctionsFailed = 0;
-                            Log::info('We passed all checks to search for '.$player->name.' with a max BIN of '.$buy_bin);
+                            Log::info('We passed all checks to search for '.$player->name);
                             do {
                                 if($bids >= $bid_limit) {
                                     break;
                                 }
                                 sleep($sleep_time);
+                                $randomBid = rand(14000000, 15000000);
+                                $formattedBid = floor($randomBid / 1000) * 1000;
                                 $search = $this->fut->searchAuctions(
                                     'player',
                                     null,
@@ -199,11 +201,11 @@ class RunBuy extends Command {
                                     null,
                                     $player->resource_id,
                                     null,
-                                    null,
+                                    $formattedBid,
                                     null,
                                     $buy_bin
                                 );
-                                Log::info('Finally, we searched for '.$player->name.' and found '.count($search['auctionInfo']).' auctions');
+                                Log::info('Finally, we searched for '.$player->name.' for a max BID of '.$formattedBid.' & a max BIN of '.$buy_bin.' and found '.count($search['auctionInfo']).' auctions');
                                 Log::info(print_r($search, true));
                                 if(!empty($search['auctionInfo'])) {
                                     foreach($search['auctionInfo'] as $auction) {
