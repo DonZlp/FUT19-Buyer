@@ -272,7 +272,7 @@ class RunBuy extends Command {
             'in_use' => '0'
         ]);
 
-        abort(200);
+        return ['status' => 200];
     }
 
     private function sort_item_list()
@@ -299,12 +299,10 @@ class RunBuy extends Command {
                 }
                 switch($this->account->platform) {
                     case "XBOX":
-                        $buy_bin = $trade->player->xb_buy_bin;
                         $sell_bid = $trade->player->xb_sell_bid;
                         $sell_bin = $trade->player->xb_sell_bin;
                         break;
                     case "PS4":
-                        $buy_bin = $trade->player->ps_buy_bin;
                         $sell_bid = $trade->player->ps_sell_bid;
                         $sell_bin = $trade->player->ps_sell_bin;
                         break;
@@ -327,6 +325,7 @@ class RunBuy extends Command {
                     $this->fut->removeSold($auction['tradeId']);
                     $trade->sell_bin = $auction['currentBid'];
                     $trade->sold_time = new Carbon;
+                    $trade->save();
                 }
             }
             $this->account->tradepile_value = $tradepile_value;
