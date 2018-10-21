@@ -127,8 +127,6 @@ class RunBuy extends Command {
                 ]);
             }
 
-            Log::info('We have logged into '.$this->account->email.' & see that you have '.$credits.' left.');
-
             $this->sort_item_list();
 
             switch($this->account->platform) {
@@ -179,14 +177,12 @@ class RunBuy extends Command {
                 if($this->account->tradepile_cards < 20){
                     if($this->account->coins > $buy_bin) {
                         if($buy_bin > 600){
-                            //LETS SEARCH....
                             $sleep_time = array_pop($times);
                             $counter = 0;
                             $bids = 0;
                             $auctions = 0;
                             $auctionsWon = 0;
                             $auctionsFailed = 0;
-                            Log::info('We passed all checks to search for '.$player->name);
                             do {
                                 if($bids >= $bid_limit) {
                                     break;
@@ -205,16 +201,12 @@ class RunBuy extends Command {
                                     null,
                                     $buy_bin
                                 );
-                                Log::info('Finally, we searched for '.$player->name.' for a max BID of '.$formattedBid.' & a max BIN of '.$buy_bin.' and found '.count($search['auctionInfo']).' auctions');
-                                Log::info(print_r($search, true));
                                 if(!empty($search['auctionInfo'])) {
                                     foreach($search['auctionInfo'] as $auction) {
                                         $bids++;
                                         $auctions++;
                                         try {
-                                            Log::info('We found an auction ('.$auction['tradeId'].') & bidding on it for '.$auction['buyNowPrice']);
                                             $bid = $this->fut->bid($auction['tradeId'], $auction['buyNowPrice']);
-                                            Log::info(print_r($bid, true));
                                             if(isset($bid['auctionInfo'])) {
                                                 Log::notice('We won an auction for ' . $player->name . ' & bought him for ' . $auction['buyNowPrice']);
                                                 $auctionsWon++;
@@ -231,10 +223,8 @@ class RunBuy extends Command {
                                             }
                                         } catch (FutError $e) {
                                             $error = $e->GetOptions();
-                                            if($error['reason'] === 'permission_denied') {
-                                                Log::notice('We failed to buy the auction for '.$player->name.' after attempting to buy him for '.$auction['buyNowPrice']);
-                                                $auctionsFailed++;
-                                            }
+                                            Log::notice('We failed to buy the auction for '.$player->name.' after attempting to buy him for '.$auction['buyNowPrice']);
+                                            $auctionsFailed++;
                                         }
                                     }
                                 }
