@@ -29,7 +29,7 @@
 * Generate your application key: `php artisan key:generate -—ansi`
 * Create the database tables `php artisan migrate`
 * Import initial database seeds `php artisan db:seed`
-* Setup Laravel Scheduler using `crontab -e` & then insert `php /var/www/html/artisan schedule:run >> /dev/null 2>&1` at the bottom.
+* Setup Laravel Scheduler using `crontab -e` & then insert `* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1` at the bottom.
 
 ## Screenshots
 
