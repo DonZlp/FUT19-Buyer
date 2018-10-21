@@ -49,6 +49,13 @@ class RunBuy extends Command {
     protected $account = [];
 
     /**
+     * Current FUT auction
+     *
+     * @var array
+     */
+    protected $status = [];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -206,6 +213,7 @@ class RunBuy extends Command {
                                         $bids++;
                                         $auctions++;
                                         try {
+                                            $this->status = $this->fut->tradeStatus($auction['tradeId']);
                                             $bid = $this->fut->bid($auction['tradeId'], $auction['buyNowPrice']);
                                             if(isset($bid['auctionInfo'])) {
                                                 Log::notice('We won an auction for ' . $player->name . ' & bought him for ' . $auction['buyNowPrice']);
@@ -218,12 +226,11 @@ class RunBuy extends Command {
                                                     'platform' => $this->account->platform,
                                                     'bought_time' => new Carbon
                                                 ]);
-                                            } else {
-                                                $auctionsFailed++;
                                             }
                                         } catch (FutError $e) {
                                             $error = $e->GetOptions();
                                             Log::notice('We caught an exception when trying to bid? '.print_r($error, true));
+                                            Log::notice('The status response we got from the auction was: '.print_r($this->status, true));
                                             Log::notice('We failed to buy the auction for '.$player->name.' after attempting to buy him for '.$auction['buyNowPrice']);
                                             $auctionsFailed++;
                                         }
