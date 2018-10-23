@@ -90,6 +90,7 @@ class Transactions extends CrudController
                 $this->crud->addClause('whereNotNull', 'sold_time');
             }
         });
+        $this->crud->orderBy('id', 'desc');
     }
 
 }

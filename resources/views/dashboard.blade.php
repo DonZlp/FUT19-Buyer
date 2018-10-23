@@ -40,11 +40,11 @@
                             <td>{{ $ps_players->count() }}</td>
                             <td>{{ $xbox_players->count() }}</td>
                             <td>{{ $accounts->count() }}</td>
-                            <td>{{ total_profit() }}</td>
-                            <td>{{ today_profit() }}</td>
+                            <td>{{ number_format(total_profit()) }}</td>
+                            <td>{{ number_format(today_profit()) }}</td>
                             <td>{{ $buys->count() }}</td>
                             <td>{{ $sales->count() }}</td>
-                            <td>{{ $coins->sum('coins') }}</td>
+                            <td>{{ number_format($coins->sum('coins')) }}</td>
                             <td>{!! autobuyer_status(true) !!}</td>
                         </tr>
                         </tbody>
@@ -64,8 +64,8 @@
         $(function () {
 
             function weeks_ago(date_object) {
-                var newDate = date_object.setDate(date_object.getDate()-6);
-                var date = new Date(newDate);
+                let newDate = date_object.setDate(date_object.getDate()-6);
+                let date = new Date(newDate);
                 return date.getDate();
             }
 

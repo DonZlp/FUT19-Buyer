@@ -8,13 +8,15 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Players extends Model
 {
 
-    use CrudTrait;
+    use CrudTrait, SoftDeletes;
 
     protected $table = 'players';
 
@@ -50,7 +52,14 @@ class Players extends Model
 
     public function getProfitToday()
     {
-
+        $transactions = Transactions::query()->where('player_id', $this->id)->whereDate('sold_time', Carbon::now()->toDateString())->get();
+        $profit = 0;
+        if(count($transactions) > 0) {
+            foreach($transactions as $row) {
+                $profit = $profit + (($row->sell_bin *0.95) - $row->buy_bin);
+            }
+        }
+        return $profit;
     }
 
 }

@@ -10,11 +10,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Accounts extends Model
 {
 
-    use CrudTrait;
+    use CrudTrait, SoftDeletes;
 
     protected $table = 'accounts';
 
@@ -47,7 +48,7 @@ class Accounts extends Model
 
     public function players()
     {
-        return $this->hasMany(Players::class);
+        return $this->hasMany(Players::class)->withTrashed();
     }
 
     public function transactions()

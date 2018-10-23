@@ -10,33 +10,6 @@ class CreateFutAccounts extends Migration
      * Run the migrations.
      *
      * @return void
-     * CREATE TABLE `fut_accounts` (
-    `id` int(11) NOT NULL,
-    `in_use` enum('0','1') NOT NULL DEFAULT '0',
-    `email` varchar(255) NOT NULL,
-    `password` varchar(255) NOT NULL,
-    `platform` varchar(255) NOT NULL,
-    `dob` varchar(255) DEFAULT NULL,
-    `phishingToken` varchar(255) DEFAULT NULL,
-    `backup_codes` text,
-    `code_method` enum('0','1') NOT NULL DEFAULT '0',
-    `sessionId` varchar(255) DEFAULT NULL,
-    `personaId` varchar(255) DEFAULT NULL,
-    `personaName` varchar(255) DEFAULT NULL,
-    `clubName` varchar(255) DEFAULT NULL,
-    `nucleusId` varchar(255) DEFAULT NULL,
-    `tradepile_cards` int(11) NOT NULL DEFAULT '0',
-    `tradepile_value` int(15) NOT NULL DEFAULT '0',
-    `coins` int(11) NOT NULL DEFAULT '0',
-    `status` enum('-1','0','1') NOT NULL DEFAULT '1',
-    `status_reason` varchar(255) DEFAULT NULL,
-    `cooldown` enum('0','1') NOT NULL DEFAULT '0',
-    `cooldown_activated` datetime DEFAULT NULL,
-    `last_sell_transaction` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
-    `last_update` datetime DEFAULT NULL,
-    `last_login` datetime DEFAULT NULL,
-    `endpoint` enum('0','1') NOT NULL DEFAULT '0'
-    ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
      */
     public function up()
     {

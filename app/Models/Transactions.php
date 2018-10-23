@@ -35,12 +35,12 @@ class Transactions extends Model
 
     public function player()
     {
-        return $this->hasOne(Players::class, 'id', 'player_id');
+        return $this->hasOne(Players::class, 'id', 'player_id')->withTrashed();
     }
 
     public function account()
     {
-        return $this->hasOne(Accounts::class, 'id', 'account_id');
+        return $this->hasOne(Accounts::class, 'id', 'account_id')->withTrashed();
     }
 
 }
