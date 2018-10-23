@@ -17,6 +17,7 @@ use FUTApi\FutError;
 use Illuminate\Console\Command;
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Input\InputOption;
 
 class RunBuy extends Command {
 
@@ -25,7 +26,7 @@ class RunBuy extends Command {
      *
      * @var string
      */
-    protected $signature = 'buy:cron';
+    protected $signature = 'buy:cron {--debug}';
 
     /**
      * The console command description.
@@ -66,7 +67,7 @@ class RunBuy extends Command {
 
 
     public function handle() {
-        if (Setting::get('autobuyer_status') == '0') {
+        if ($this->option('debug') == false && Setting::get('autobuyer_status') == '0') {
             $this->info("Autobuyer disabled.");
             return response(['status' => 403]);
         }
@@ -75,7 +76,7 @@ class RunBuy extends Command {
             abort(403);
         }
         Accounts::find($this->account->id)->update([
-            'in_use' => '1'
+            'in_use' => ($this->option('debug') == false ? '1' : '0')
         ]);
         try {
 
@@ -85,7 +86,7 @@ class RunBuy extends Command {
                 strtolower($this->account->platform),
                 null,
                 false,
-                false,
+                true,
                 storage_path(
                     'app/fut_cookies/' . md5($this->account->email)
                 )
@@ -201,19 +202,19 @@ class RunBuy extends Command {
                                     'player',
                                     null,
                                     null,
-                                    null,
                                     $player->resource_id,
+                                    null,
                                     null,
                                     $formattedBid,
                                     null,
                                     $buy_bin
                                 );
+
                                 if(!empty($search['auctionInfo'])) {
                                     foreach($search['auctionInfo'] as $auction) {
                                         $bids++;
                                         $auctions++;
                                         try {
-                                            $this->status = $this->fut->tradeStatus($auction['tradeId']);
                                             $bid = $this->fut->bid($auction['tradeId'], $auction['buyNowPrice']);
                                             if(isset($bid['auctionInfo'])) {
                                                 Log::notice('We won an auction for ' . $player->name . ' & bought him for ' . $auction['buyNowPrice']);
@@ -350,6 +351,16 @@ class RunBuy extends Command {
             abort(403);
 
         }
+    }
+
+    /**
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['debug', null, InputOption::VALUE_OPTIONAL, true, null],
+        ];
     }
 
 }

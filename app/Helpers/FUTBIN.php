@@ -79,8 +79,10 @@ class FUTBIN {
         return json_decode($response->getBody(), true);
     }
 
-    public function selectPlayer($id = null, $resourceId = null) {
-        $proxy = $this->getProxy();
+    public function selectPlayer($id = null, $resourceId = null, $proxy = false) {
+        if($proxy !== false) {
+            $proxy = $this->getProxy();
+        }
         try {
             $response = $this->client->request('POST', 'futbin/api/fetchPlayerInformation', [
                 'form_params' => [
