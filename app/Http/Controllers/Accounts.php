@@ -23,7 +23,13 @@ class Accounts extends CrudController
         $this->crud->setColumns([
             'email',
             'platform',
-            'coins',
+            [
+                'label' => 'Status',
+                'type' => 'closure',
+                'function' => function($entry) {
+                    return number_format($entry->coins);
+                }
+            ],
             [
                 'name' => 'tradepile_cards',
                 'label' => 'Tradepile Cards',
@@ -37,7 +43,7 @@ class Accounts extends CrudController
                 'type' => 'closure',
                 'function' => function($entry) {
                     if($entry->in_use === '1') {
-                        return "<label class='label label-success'>Running</label>";
+                        return "<label class='label label-warning'>Running</label>";
                     }
                     if($entry->status === '1') {
                         if(is_null($entry->phishingToken)) {
