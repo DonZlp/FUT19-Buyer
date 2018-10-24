@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
             $accounts = Accounts::all()->count();
             return $accounts === 0;
         });
+        date_default_timezone_set(config('app.timezone'));
     }
 
     /**

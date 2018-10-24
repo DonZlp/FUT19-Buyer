@@ -40,8 +40,8 @@
                             <td>{{ $ps_players->count() }}</td>
                             <td>{{ $xbox_players->count() }}</td>
                             <td>{{ $accounts->count() }}</td>
-                            <td>{{ number_format(total_profit()) }}</td>
                             <td>{{ number_format(today_profit()) }}</td>
+                            <td>{{ number_format(total_profit()) }}</td>
                             <td>{{ $buys->count() }}</td>
                             <td>{{ $sales->count() }}</td>
                             <td>{{ number_format($coins->sum('coins')) }}</td>
