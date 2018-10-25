@@ -144,6 +144,9 @@ class RunBuy extends Command {
                 case "PS4":
                     $players = Players::query()->where('ps_buy_bin', '<', $credits)->where('ps_buy_bin', '!=', '0')->where('status', '1')->orderBy('last_searched', 'ASC')->get();
                     break;
+                case "PC":
+                    $players = Players::query()->where('pc_buy_bin', '<', $credits)->where('pc_buy_bin', '!=', '0')->where('status', '1')->orderBy('last_searched', 'ASC')->get();
+                    break;
             }
 
             if($players->count() === 0) {
@@ -172,6 +175,9 @@ class RunBuy extends Command {
                         break;
                     case "PS4":
                         $buy_bin = $player->ps_buy_bin;
+                        break;
+                    case "PC":
+                        $buy_bin = $player->pc_buy_bin;
                         break;
                 }
                 Log::info('We are going to search for '.$player->name.' with a max BIN of '.$buy_bin);
@@ -310,6 +316,10 @@ class RunBuy extends Command {
                     case "PS4":
                         $sell_bid = $trade->player->ps_sell_bid;
                         $sell_bin = $trade->player->ps_sell_bin;
+                        break;
+                    case "PC":
+                        $sell_bid = $trade->player->pc_sell_bid;
+                        $sell_bin = $trade->player->pc_sell_bin;
                         break;
                 }
                 if($trade->sell_bin > 0) {
