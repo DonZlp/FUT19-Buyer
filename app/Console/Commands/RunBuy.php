@@ -197,7 +197,7 @@ class RunBuy extends Command {
                     ]);
                     abort(403);
                 }
-                if($this->account->tradepile_cards < $this->account->tradepile_liimt){
+                if($this->account->tradepile_cards < $this->account->tradepile_limit){
                     if($this->account->coins > $buy_bin) {
                         if($buy_bin > 600){
                             $sleep_time = array_pop($times);
@@ -261,6 +261,7 @@ class RunBuy extends Command {
                                 $player->increment('auctions_found', $auctions);
                                 $player->increment('auctions_won', $auctionsWon);
                                 $player->increment('auctions_failed', $auctionsFailed);
+                                $player->save();
                             }
                         }
                     }
