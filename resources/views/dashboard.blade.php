@@ -26,6 +26,7 @@
                         <tr>
                             <th>PS Players</th>
                             <th>Xbox Players</th>
+                            <th>PC Players</th>
                             <th>Active Accounts</th>
                             <th>Todays Profit</th>
                             <th>Alltime Profit</th>
@@ -39,6 +40,7 @@
                         <tr>
                             <td>{{ $ps_players->count() }}</td>
                             <td>{{ $xbox_players->count() }}</td>
+                            <td>{{ $pc_players->count() }}</td>
                             <td>{{ $accounts->count() }}</td>
                             <td>{{ number_format(today_profit()) }}</td>
                             <td>{{ number_format(total_profit()) }}</td>
@@ -119,6 +121,13 @@
                             pointStart: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), weeks_ago(new Date())),
                             pointInterval: 24 * 3600 * 1000,
                             color: '#3498db',
+                        },
+                        {
+                            name: "PC",
+                            data: jsonObj.PC,
+                            pointStart: Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), weeks_ago(new Date())),
+                            pointInterval: 24 * 3600 * 1000,
+                            color: '#db8214',
                         }
                     ]
                 });

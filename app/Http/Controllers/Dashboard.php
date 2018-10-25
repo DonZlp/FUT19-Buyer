@@ -21,6 +21,7 @@ class Dashboard extends Controller
     {
         $ps_players = Players::query()->where('ps_buy_bin', '!=', '0')->where('status', '1');
         $xbox_players = Players::query()->where('xb_buy_bin', '!=', '0')->where('status', '1');
+        $pc_players = Players::query()->where('pc_buy_bin', '!=', '0')->where('status', '1');
         $accounts = Accounts::query()->where('status', '1');
         $sales = Transactions::query()->whereNotNull('sold_time');
         $buys = Transactions::query();
@@ -28,6 +29,7 @@ class Dashboard extends Controller
         return view('dashboard', [
             'ps_players' => $ps_players,
             'xbox_players' => $xbox_players,
+            'pc_players' => $pc_players,
             'accounts' => $accounts,
             'sales' => $sales,
             'buys' => $buys,
@@ -44,6 +46,7 @@ class Dashboard extends Controller
             $day = abs($i - 6);
             $result['XBOX'][$i] = day_profit($day, "XBOX");
             $result['PS4'][$i] = day_profit($day, "PS4");
+            $result['PC'][$i] = day_profit($day, "PC");
         }
         return $result;
     }
