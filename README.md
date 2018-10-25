@@ -4,6 +4,10 @@
 
 [FUT19 Buyer](https://github.com/InkedCurtis/FUT19-Buyer) is a simplistic FIFA 19 Autobuyer coded using the Laravel 5 Framework alongside the Backpack package.
 
+## Donations
+
+Any donations that can buy me a few cups of coffee are highly appreciated: https://paypal.me/InkedCurtis
+
 ## Requirements
 
 * DigitalOcean Account - ($100 in Credit if you register using this link - [DigitalOcean](https://m.do.co/c/96b227b93ca5)
