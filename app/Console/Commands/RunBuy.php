@@ -57,6 +57,11 @@ class RunBuy extends Command {
     protected $status = [];
 
     /**
+     * Requests Performed
+     */
+    protected $requests = 0;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -154,6 +159,15 @@ class RunBuy extends Command {
             }
 
             $original_rpm_limit = Setting::get('rpm_limit');
+
+            //rpm prevention
+            if($this->requests >= $original_rpm_limit) {
+                Accounts::find($this->account->id)->update([
+                    'in_use' => '0'
+                ]);
+                abort(403);
+            }
+
             $bid_limit = Setting::get('player_limit');
             $rpm_limit = $original_rpm_limit/$players->count();
             $times = [];
@@ -165,6 +179,7 @@ class RunBuy extends Command {
                     $time = 0;
                 }
             }
+
             foreach($players as $player) {
                 switch($this->account->platform) {
                     case "XBOX":
@@ -287,6 +302,7 @@ class RunBuy extends Command {
             $items = $this->fut->unassigned();
             if(count($items['itemData']) > 0) {
                 foreach($items['itemData'] as $item) {
+                    $this->requests++;
                     $this->fut->sendToTradepile($item['id'], false);
                 }
             }
@@ -323,6 +339,7 @@ class RunBuy extends Command {
                     $trade->listed_bin = $sell_bin;
                     $trade->listed_time = new Carbon;
                     $trade->save();
+                    $this->requests++;
                     //check trade status
                     $this->fut->tradeStatus($sale['id']);
                 } elseif($auction['tradeState'] == "closed"){
@@ -331,6 +348,7 @@ class RunBuy extends Command {
                     $trade->sell_bin = $auction['currentBid'];
                     $trade->sold_time = new Carbon;
                     $trade->save();
+                    $this->requests++;
                 }
             }
             $this->account->tradepile_value = $tradepile_value;
