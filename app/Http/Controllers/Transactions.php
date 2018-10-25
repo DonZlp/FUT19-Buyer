@@ -84,7 +84,7 @@ class Transactions extends CrudController
             1 => 'Selling',
             2 => 'Sold'
         ], function($value) {
-            if($value === 1) {
+            if($value === '1') {
                 $this->crud->addClause('whereNull', 'sold_time');
             } else {
                 $this->crud->addClause('whereNotNull', 'sold_time');

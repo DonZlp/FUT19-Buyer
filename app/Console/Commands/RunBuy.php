@@ -99,7 +99,7 @@ class RunBuy extends Command {
                 date("Y-m", strtotime($this->account->dob))
             );
             if($this->account->cooldown == 1) {
-                if($this->account->cooldown_activated < Carbon::now()->subMinutes(10)->toDateTimeString()) {
+                if(Carbon::now()->diffInMinutes(Carbon::parse($this->account->cooldown_activated)) > Setting::get('account_cooldown')) {
                     Accounts::find($this->account->id)->update([
                         'phishingToken' => null,
                         'sessionId' => null,
@@ -116,7 +116,7 @@ class RunBuy extends Command {
                     abort(403);
                 }
             } else {
-                if($this->account->last_login < Carbon::now()->subMinutes(40)->toDateTimeString()) {
+                if(Carbon::now()->diffInMinutes(Carbon::parse($this->account->last_login)) > Setting::get('account_runtime')) {
                     Accounts::find($this->account->id)->update([
                         'cooldown' => '1',
                         'in_use' => '0',
@@ -158,7 +158,7 @@ class RunBuy extends Command {
             $rpm_limit = $original_rpm_limit/$players->count();
             $times = [];
             $time = 0;
-            $sum_to = 60;
+            $sum_to = 55;
             while(array_sum($times) != $sum_to) {
                 $times[$time] = mt_rand(1, $sum_to / mt_rand(1, 5));
                 if (++$time == $original_rpm_limit) {
@@ -261,6 +261,7 @@ class RunBuy extends Command {
                     'phishingToken' => null,
                     'sessionId' => null,
                     'nucleusId' => null,
+                    'status' => '-1',
                     'status_reason' => $error['reason'],
                     'in_use' => '0'
                 ]);
@@ -342,6 +343,7 @@ class RunBuy extends Command {
                 'phishingToken' => null,
                 'sessionId' => null,
                 'nucleusId' => null,
+                'status' => '-1',
                 'status_reason' => $error['reason'],
                 'in_use' => '0'
             ]);

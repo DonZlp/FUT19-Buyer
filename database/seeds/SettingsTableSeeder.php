@@ -56,7 +56,23 @@ class SettingsTableSeeder extends Seeder
             'value'         => '98',
             'field'         => '{"name":"value","label":"Value", "title":"Sell Percentage" ,"type":"textarea"}',
             'active'        => 1,
-        ]
+        ],
+        [
+            'key'           => 'account_runtime',
+            'name'          => 'Account Runtime',
+            'description'   => 'Minutes account will be online before cooling down',
+            'value'         => '30',
+            'field'         => '{"name":"value","label":"Value", "title":"Account Runtime" ,"type":"textarea"}',
+            'active'        => 1,
+        ],
+        [
+            'key'           => 'account_cooldown',
+            'name'          => 'Account cooldown',
+            'description'   => 'Minutes the account will be on cooldown',
+            'value'         => '30',
+            'field'         => '{"name":"value","label":"Value", "title":"Account cooldown" ,"type":"textarea"}',
+            'active'        => 1,
+        ],
     ];
 
     /**

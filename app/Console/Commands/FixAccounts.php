@@ -61,6 +61,7 @@ class FixAccounts extends Command {
                 $account->coins = $login['mass_info']['userInfo']['credits'];
                 $account->dob = $login['auth']['dob'];
                 $account->last_login = new Carbon;
+                $account->status_reason = null;
                 $account->save();
 
                 $this->info("We updated ".$account->email." successfully!");

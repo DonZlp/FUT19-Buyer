@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('max_accounts', function($attribute, $value, $parameters) {
-            $accounts = Accounts::all()->count();
+            $accounts = Accounts::query()->whereNull('deleted_at')->count();
             return $accounts === 0;
         });
         date_default_timezone_set(config('app.timezone'));
