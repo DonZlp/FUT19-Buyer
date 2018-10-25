@@ -33,6 +33,7 @@ class Accounts extends Model
         'personaName',
         'clubName',
         'nucleusId',
+        'tradepile_limit',
         'tradepile_cards',
         'tradepile_value',
         'coins',

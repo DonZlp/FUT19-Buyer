@@ -35,10 +35,10 @@ class CreateFutPlayers extends Migration
             $table->integer('club_id');
             $table->integer('nation_id');
             $table->string('position')->nullable();
-            $table->bigInteger('total_searches')->nullable();
-            $table->bigInteger('auctions_found')->nullable();
-            $table->bigInteger('auctions_won')->nullable();
-            $table->bigInteger('auctions_failed')->nullable();
+            $table->bigInteger('total_searches')->default('0');
+            $table->bigInteger('auctions_found')->default('0');
+            $table->bigInteger('auctions_won')->default('0');
+            $table->bigInteger('auctions_failed')->default('0');
             $table->enum('status', ['0', '1'])->default('1');
             $table->timestamps();
         });

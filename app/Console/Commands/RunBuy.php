@@ -182,7 +182,7 @@ class RunBuy extends Command {
                     ]);
                     abort(403);
                 }
-                if($this->account->tradepile_cards < 20){
+                if($this->account->tradepile_cards < $this->account->tradepile_liimt){
                     if($this->account->coins > $buy_bin) {
                         if($buy_bin > 600){
                             $sleep_time = array_pop($times);
@@ -239,16 +239,16 @@ class RunBuy extends Command {
                                 }
                                 $counter++;
                             } while($counter < $rpm_limit);
+                            //update the player
+                            if(isset($counter) && isset($auctions) && isset($auctionsWon) && isset($auctionsFailed)) {
+                                Log::info('Search completed for '.$player->name.' with '.$counter.' total searches, '.$auctions.' auctions, winning '.$auctionsWon.' & losing '.$auctionsFailed);
+                                $player->increment('total_searches', $counter);
+                                $player->increment('auctions_found', $auctions);
+                                $player->increment('auctions_won', $auctionsWon);
+                                $player->increment('auctions_failed', $auctionsFailed);
+                            }
                         }
                     }
-                }
-                Log::info('Search completed for '.$player->name.' with '.$counter.' total searches, '.$auctions.' auctions, winning '.$auctionsWon.' & losing '.$auctionsFailed);
-                //update the player
-                if($counter && $auctions && $auctionsWon && $auctionsFailed) {
-                    $player->increment('total_searches', $counter);
-                    $player->increment('auctions_found', $auctions);
-                    $player->increment('auctions_won', $auctionsWon);
-                    $player->increment('auctions_failed', $auctionsFailed);
                 }
             }
 
