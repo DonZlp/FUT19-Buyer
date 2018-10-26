@@ -23,7 +23,7 @@ class StoreAccounts extends FormRequest {
         return [
             'platform' => [
                 'required',
-                Rule::in(['XBOX', 'PS4']),
+                Rule::in(['XBOX', 'PS4', 'PC']),
             ],
             'email' => 'max_accounts|required|unique:accounts,email',
             'password' => 'required',

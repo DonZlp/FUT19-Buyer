@@ -24,7 +24,7 @@ class UpdateAccounts extends FormRequest {
         return [
             'platform' => [
                 'required',
-                Rule::in(['XBOX', 'PS4']),
+                Rule::in(['XBOX', 'PS4', 'PC']),
             ],
             'email' => 'required|unique:accounts,email,'.$this->route('account'),
             'password' => 'required',

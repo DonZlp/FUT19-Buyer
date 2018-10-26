@@ -58,7 +58,7 @@ class UpdatePrices extends Command {
         $sell_percentage = Setting::get('sell_percentage');
         foreach ($run_query as $row) {
             $platforms = [
-                "PS", "XBOX"
+                "PS", "XBOX", "PC"
             ];
             $info = [];
             foreach($platforms as $platform) {
@@ -76,7 +76,12 @@ class UpdatePrices extends Command {
                     "end_range" => $ranges['end_range']
                 );
             }
+
             Players::find($row->id)->update([
+                "pc_lowest_bin" => $info['PC']['lowest_bin'],
+                "pc_buy_bin" => $info['PC']['max_bin'],
+                "pc_sell_bid" => $info['PC']['sell_bid'],
+                "pc_sell_bin" => $info['PC']['sell_bin'],
                 "xb_lowest_bin" => $info['XBOX']['lowest_bin'],
                 "xb_buy_bin" => $info['XBOX']['max_bin'],
                 "xb_sell_bid" => $info['XBOX']['sell_bid'],

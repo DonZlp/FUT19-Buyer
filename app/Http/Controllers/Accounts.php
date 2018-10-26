@@ -70,7 +70,8 @@ class Accounts extends CrudController
             'type' => 'radio',
             'options' => [
                 'XBOX' => 'Xbox One',
-                'PS4' => 'Playstation 4'
+                'PS4' => 'Playstation 4',
+                'PC' => 'PC'
             ],
             'default' => 'XBOX',
             'inline' => true

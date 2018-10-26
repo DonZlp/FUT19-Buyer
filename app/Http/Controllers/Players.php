@@ -42,6 +42,14 @@ class Players extends CrudController
                 'label' => 'Xbox Sell'
             ],
             [
+                'name' => 'pc_buy_bin',
+                'label' => 'PC Buy'
+            ],
+            [
+                'name' => 'pc_sell_bin',
+                'label' => 'PC Sell'
+            ],
+            [
                 'label' => 'Today Profit',
                 'type' => 'model_function',
                 'function_name' => 'getProfitToday'

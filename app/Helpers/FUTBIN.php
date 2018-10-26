@@ -32,7 +32,7 @@ class FUTBIN {
     private $requestCache = null;
 
     public function __construct($console) {
-        if(in_array($console, array("XBOX", "PS", "PS4"))) {
+        if(in_array($console, array("XBOX", "PS", "PS4", "PC"))) {
             if($console == "XBOX") {
                 $this->console = "XB";
             } elseif($console == "PS4") {
