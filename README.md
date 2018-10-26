@@ -8,6 +8,10 @@
 
 Any donations that can buy me a few cups of coffee are highly appreciated: https://paypal.me/InkedCurtis
 
+## Managed Setup
+
+If for any reason you require assistance in getting this completely setup & running ready for you to use it can be done for a flat fee of £75 GBP 
+
 ## Requirements
 
 * DigitalOcean Account - ($100 in Credit if you register using this link - [DigitalOcean](https://m.do.co/c/96b227b93ca5)
