@@ -185,6 +185,27 @@
 
 @include('backpack::inc.alerts')
 
+<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    let pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', {
+        cluster: '{{ env("PUSHER_APP_CLUSTER") }}',
+        forceTLS: true
+    });
+
+    let channel = pusher.subscribe('autobuyer');
+    channel.bind('App\\Events\\CardPurchase', function(data) {
+        new PNotify({
+            title: 'Success!',
+            text: data.player_name + ' bought for ' + data.bought_for + ' at ' + data.bought_at,
+            type: 'success'
+        });
+    });
+</script>
+
 @yield('after_scripts')
 @stack('after_scripts')
 

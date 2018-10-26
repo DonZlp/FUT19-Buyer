@@ -8,6 +8,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\CardPurchase;
 use App\Models\Accounts;
 use App\Models\Players;
 use App\Models\Transactions;
@@ -234,7 +235,7 @@ class RunBuy extends Command {
                                             if(isset($bid['auctionInfo'])) {
                                                 Log::notice('We won an auction for ' . $player->name . ' & bought him for ' . $auction['buyNowPrice']);
                                                 $auctionsWon++;
-                                                Transactions::insert([
+                                                $transaction = Transactions::insertGetId([
                                                     'player_id' => $player->id,
                                                     'card_id' => $auction['itemData']['id'],
                                                     'buy_bin' => $auction['buyNowPrice'],
@@ -242,6 +243,7 @@ class RunBuy extends Command {
                                                     'platform' => $this->account->platform,
                                                     'bought_time' => new Carbon
                                                 ]);
+                                                event(new CardPurchase(Transactions::find($transaction)));
                                             }
                                         } catch (FutError $e) {
                                             $error = $e->GetOptions();

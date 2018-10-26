@@ -14,7 +14,8 @@
         "inkedcurtis/fut-api": "dev-FIFA19",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "muhamadrezaar/highcharts": "^2.0"
+        "muhamadrezaar/highcharts": "^2.0",
+        "pusher/pusher-php-server": "~2.0"
     },
     "require-dev": {
         "backpack/generators": "^1.2",
